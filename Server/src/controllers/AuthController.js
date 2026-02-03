@@ -1,4 +1,4 @@
- import User from '../models/User.js'
+import User from '../models/User.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 
@@ -18,33 +18,38 @@ export const login = async (req, res) => {
   if (!match) {
     return res.status(401).json({ message: 'לא מורשה' })
   }
+console.log(foundUser.isAdmin);
 
   const userInfo = {
     id: foundUser._id,
     email: foundUser.email,
-    
+    isAdmin: foundUser.isAdmin
   }
 
   const accessToken = jwt.sign(
     userInfo,
-    process.env.ACCESS_TOKEN_SECRET
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: "7d" }
   )
 
   res.json({ accessToken })
 }
 
 export const register = async (req, res) => {
-  const { fullName, email, password, address, subscription } = req.body
+  const { fullName, email, password,isAdmin, address, subscription } = req.body
 
   if (!fullName || !password || !email) {
     return res.status(400).json({ message: 'כל השדות חובה' })
   }
 
-  const duplicate = await User.findOne({ email }).lean()
-  if (duplicate) {
+  const duplicateEmail = await User.findOne({ email }).lean()
+  if (duplicateEmail) {
     return res.status(409).json({ message: 'כפילות משתמשים' })
   }
-
+  const duplicatePass = await User.findOne({ password }).lean()
+  if (duplicatePass) {
+    return res.status(409).json({ message: 'כפילות משתמשים' })
+  }
   const hashedPwd = await bcrypt.hash(password, 10)
 
   const user = await User.create({
@@ -52,7 +57,8 @@ export const register = async (req, res) => {
     email,
     password: hashedPwd,
     address,
-    subscription
+    subscription,
+    isAdmin
   })
 
   return res.status(201).json({

@@ -7,8 +7,8 @@ import {
   deleteSubscription
 } from "../controllers/SubscriptionController.js";
 
-import { verifyJWT } from "../middlewares/verifyJWT.js";
-import { verifyAdmin } from "../middlewares/verifyAdmin.js";
+import { verifyJWT } from "../middlewares/AuthMiddleware.js";
+import { verifyAdmin } from "../middlewares/AdminMiddleware.js";
 const router = express.Router();
 
 // GET כל המנויים – כל משתמש מחובר
