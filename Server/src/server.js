@@ -5,6 +5,7 @@ import connectDB from './config/db.js'
 import authRoutes from './routes/AuthRoute.js'
 import subscriptionRoutes from "./routes/SubscriptionRoute.js";
 import userRoute from "./routes/UserRoute.js"
+import paymentRoute from "./routes/PaymentRoute.js";
 
 const app = express()
 const PORT = process.env.PORT || 1234
@@ -15,6 +16,7 @@ app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoute)
 app.use("/api/subscription", subscriptionRoutes);
+app.use("/api/payment", paymentRoute);
 
 app.get('/', (req, res) => {
   res.send('app is running')
