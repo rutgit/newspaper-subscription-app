@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     cardcomToken: {
         type: String,
     },
-
+//subscriptionId
     subscriptionStart: Date,
     subscriptionEnd: Date
 });

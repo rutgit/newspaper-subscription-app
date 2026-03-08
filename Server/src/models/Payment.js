@@ -14,10 +14,26 @@ const paymentSchema = new mongoose.Schema(
       required: true,
     },
 
-    amount: {
-      type: Number,
-      default:1
-    },
+      edition: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Edition",
+      },
+
+      amount: {
+        type: Number,
+        default: 1,
+      },
+
+      billingType: {
+        type: String,
+        enum: ["immediate", "deferred"],
+        default: "immediate",
+      },
+
+      billingScheduleRef: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "BillingSchedule",
+      },
 
     status: {
       type: String,
