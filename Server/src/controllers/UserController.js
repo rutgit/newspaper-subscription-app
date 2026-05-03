@@ -1,3 +1,4 @@
+import subscriptionPlan from "../models/subscriptionPlan.js";
 import User from "../models/User.js";
 
 // GET – כל המשתמשים (Admin בלבד)
@@ -40,7 +41,9 @@ export const updateUser = async (req, res) => {
 
         const allowedUpdates = {
             fullName: req.body.fullName,
-            address: req.body.address
+            address: req.body.address,
+            email: req.body.email,
+            subscriptionPlan: req.body.subscriptionPlan
         };
 
         const updatedUser = await User.findByIdAndUpdate(

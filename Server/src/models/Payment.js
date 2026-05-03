@@ -10,30 +10,19 @@ const paymentSchema = new mongoose.Schema(
 
     suscription: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "subscriptionPlan",
+      ref: "SubscriptionPlan",
       required: true,
     },
 
-      edition: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Edition",
-      },
+    amount: {
+      type: Number,
+      required: true,
+    },
 
-      amount: {
-        type: Number,
-        default: 1,
-      },
-
-      billingType: {
-        type: String,
-        enum: ["immediate", "deferred"],
-        default: "immediate",
-      },
-
-      billingScheduleRef: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "BillingSchedule",
-      },
+    newspaperNumber: {
+      type: Number, 
+      required: true,
+    },
 
     status: {
       type: String,
@@ -48,4 +37,6 @@ const paymentSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Payment", paymentSchema);
+const Payment = mongoose.models.Payment || mongoose.model("Payment", paymentSchema);
+
+export default Payment;

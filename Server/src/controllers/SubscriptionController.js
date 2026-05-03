@@ -23,9 +23,9 @@ export const getSubscriptionById = async (req, res) => {
 
 // POST – יצירת מנוי חדש (Admin בלבד)
 export const createSubscription = async (req, res) => {
-  const { name, price, durationDays, includesDelivery } = req.body;
+  const { name, price, includesDelivery } = req.body;
   try {
-    const plan = new SubscriptionPlan({ name, price, durationDays, includesDelivery });
+    const plan = new SubscriptionPlan({ name, price, includesDelivery });
     const savedPlan = await plan.save();
     res.status(201).json(savedPlan);
   } catch (err) {
@@ -39,10 +39,9 @@ export const updateSubscription = async (req, res) => {
     const plan = await SubscriptionPlan.findById(req.params.id);
     if (!plan) return res.status(404).json({ message: "Subscription not found" });
 
-    const { name, price, durationDays, includesDelivery } = req.body;
+    const { name, price, includesDelivery } = req.body;
     if (name !== undefined) plan.name = name;
     if (price !== undefined) plan.price = price;
-    if (durationDays !== undefined) plan.durationDays = durationDays;
     if (includesDelivery !== undefined) plan.includesDelivery = includesDelivery;
 
     const updatedPlan = await plan.save();

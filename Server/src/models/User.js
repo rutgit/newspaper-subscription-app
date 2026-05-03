@@ -7,17 +7,23 @@ const userSchema = new mongoose.Schema({
     isAdmin: { type: Boolean, required: true, default: false },
     address: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "address",
+        ref: "Address",
         required: false,
         default: null
+    },
+    suscription: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "SubscriptionPlan",
+        required: true,
     },
     cardcomToken: {
         type: String,
     },
-//subscriptionId
     subscriptionStart: Date,
     subscriptionEnd: Date
 });
 
-export default mongoose.model('User', userSchema)
+const User = mongoose.models.User || mongoose.model('User', userSchema);
+
+export default User;
 

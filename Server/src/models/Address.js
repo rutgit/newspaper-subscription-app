@@ -7,4 +7,4 @@ const addressSchema = new mongoose.Schema({
   zipCode: String
 }, { _id: false });
 
-export default mongoose.model('address',addressSchema)
+export default mongoose.model('Address',addressSchema)

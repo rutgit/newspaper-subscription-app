@@ -11,10 +11,8 @@ import { verifyJWT } from "../middlewares/AuthMiddleware.js";
 import { verifyAdmin } from "../middlewares/AdminMiddleware.js";
 const router = express.Router();
 
-// GET כל המנויים – כל משתמש מחובר
 router.get("/", verifyJWT, getSubscriptions);
 
-// GET מנוי בודד לפי id – כל משתמש מחובר
 router.get("/:id", verifyJWT, getSubscriptionById);
 
 // POST יצירת מנוי חדש – רק מנהל
